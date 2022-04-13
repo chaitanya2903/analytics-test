@@ -27,4 +27,7 @@ def query():
         figure2 = results['figure2']
         return render_template('index.html', figJSON=figJSON, figS=figure2, query=request.form['query'], data=data)
 
-
+if __name__ == "__main__":
+    if "moody.sqlite" not in os.listdir():
+        create_db()
+    app.run()
