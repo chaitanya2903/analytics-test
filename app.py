@@ -17,15 +17,14 @@ def query():
         return render_template('base.html', figJSON=figJSON, data=data)
     elif request.method == 'POST':
         req_query = request.form['query']
-        if "moody" not in req_query.lower():
+        if "moody" not in req_query.lower().split():
             return "Table Name is Moody"
-        if "select" not in req_query.lower():
+        if "select" not in req_query.lower().split():
             return "You can only perform queries of type select score, grade,  from moody where condition"
         results = execute_query(request.form['query'])
         figJSON = results['figure1']
         data = results['data']
-        figure2 = results['figure2']
-        return render_template('index.html', figJSON=figJSON, figS=figure2, query=request.form['query'], data=data)
+        return render_template('base.html', figJSON=figJSON, query=request.form['query'], data=data)
 
 if __name__ == "__main__":
     if "moody.sqlite" not in os.listdir():
